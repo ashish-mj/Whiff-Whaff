@@ -6,7 +6,7 @@ Created on Mon Dec 21 10:15:24 2020
 @author: ashish
 """
 
-import pygame,sys
+import pygame,sys,random
 
 
 
@@ -27,7 +27,8 @@ cpu = pygame.Rect(10,screen_height/2-70,10,140)
 background = pygame.Color('grey12')
 border = (200,200,200)
 
-ball_speed_x,ball_speed_y = 6,6
+ball_speed_x = 6 * random.choice((1,-1))
+ball_speed_y = 6 * random.choice((1,-1))
 player_speed, cpu_speed = 0,6
 
 def ball_movement():
@@ -40,7 +41,7 @@ def ball_movement():
     if ball.top <=0 or ball.bottom>= screen_height:
         ball_speed_y *= -1
     if ball.left <=0 or ball.right>= screen_width:
-        ball_speed_x *= -1
+        ball_restart()
     if ball.colliderect(player) or ball.colliderect(cpu):
         ball_speed_x *= -1
  
@@ -61,6 +62,11 @@ def cpu_movement():
     if cpu.bottom >=screen_height:
         cpu.bottom =screen_height
         
+def ball_restart():
+    global ball_speed_x,ball_speed_y
+    ball.center = (screen_width/2,screen_height/2)
+    ball_speed_y *= random.choice((1,-1))
+    ball_speed_x *= random.choice((1,-1))
 
 while True:
     
