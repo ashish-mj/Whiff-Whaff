@@ -8,6 +8,8 @@ Created on Mon Dec 21 10:15:24 2020
 
 import pygame,sys
 
+
+
 pygame.init()
 clock = pygame.time.Clock()
 
@@ -26,13 +28,11 @@ background = pygame.Color('grey12')
 border = (200,200,200)
 
 ball_speed_x,ball_speed_y = 6,6
+player_speed, cpu_speed = 0,6
 
-while True:
+def ball_movement():
     
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+    global ball_speed_x,ball_speed_y
     
     ball.x+=ball_speed_x
     ball.y+=ball_speed_y
@@ -43,6 +43,41 @@ while True:
         ball_speed_x *= -1
     if ball.colliderect(player) or ball.colliderect(cpu):
         ball_speed_x *= -1
+ 
+def player_movement():
+    player.y += player_speed
+    if player.top <= 0:
+        player.top = 0
+    if player.bottom >= screen_height:
+        player.bottom = screen_height    
+    
+def cpu_movement():
+    if cpu.top < ball.y:
+        cpu.top += cpu_speed
+    if cpu.bottom > ball.y:
+        cpu.bottom -= cpu_speed
+    if cpu.top <= 0:
+        cpu.top=0
+    if cpu.bottom >=screen_height:
+        cpu.bottom =screen_height
+        
+
+while True:
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_DOWN:
+                player_speed += 7
+            if event.key == pygame.K_UP:
+                player_speed -= 7
+    
+    ball_movement()
+    player_movement()
+    cpu_movement()
     
     screen.fill(background)
     pygame.draw.rect(screen,border,player)
