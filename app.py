@@ -141,7 +141,7 @@ while True:
     screen.fill(green)
     pygame.draw.rect(screen,white,player)
     pygame.draw.rect(screen,white,cpu)
-    pygame.draw.ellipse(screen,border,ball)
+    pygame.draw.ellipse(screen,white,ball)
     pygame.draw.aaline(screen,white,(screen_width/2,0),(screen_width/2,screen_height))
     
     if score_time:
@@ -152,6 +152,13 @@ while True:
     
     cpu_text = game_font.render(f"{cpu_score}",False,border)
     screen.blit(cpu_text,(583,290))
+    
+    CPU = game_font.render("CPU",False,border)
+    screen.blit(CPU,(10,10))
+    
+    ashish = game_font.render("Ashish",False,border)
+    screen.blit(ashish,(screen_width-130,10))
+    
     
     pygame.display.flip()
     clock.tick(60)
