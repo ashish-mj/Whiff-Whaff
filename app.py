@@ -94,8 +94,11 @@ ball = pygame.Rect(screen_width/2-15,screen_height/2-15,30,30)
 player = pygame.Rect(screen_width-20,screen_height/2-70,10,140)
 cpu = pygame.Rect(10,screen_height/2-70,10,140)
 
-background = pygame.Color('grey12')
+############################################
+green = (0, 133, 35)
 border = (200,200,200)
+white = (255,255,255) 
+########################################
 
 ball_speed_x = 6 * random.choice((1,-1))
 ball_speed_y = 6 * random.choice((1,-1))
@@ -135,11 +138,11 @@ while True:
     player_movement()
     cpu_movement()
     
-    screen.fill(background)
-    pygame.draw.rect(screen,border,player)
-    pygame.draw.rect(screen,border,cpu)
+    screen.fill(green)
+    pygame.draw.rect(screen,white,player)
+    pygame.draw.rect(screen,white,cpu)
     pygame.draw.ellipse(screen,border,ball)
-    pygame.draw.aaline(screen,border,(screen_width/2,0),(screen_width/2,screen_height))
+    pygame.draw.aaline(screen,white,(screen_width/2,0),(screen_width/2,screen_height))
     
     if score_time:
         ball_restart()
